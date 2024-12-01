@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yêu TRẦN HẰNG</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #faf7f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #ff5e57;
+        }
+        img {
+            max-width: 200px;
+            margin-top: 20px;
+        }
+        .buttons {
+            margin-top: 30px;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+        .yes-btn {
+            background-color: #28a745;
+            color: white;
+        }
+        .no-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1> Đặng Khánh Toàn</h1>
+    <img src="t.jpeg" alt="Cute Image">
+    <div id="chat-box">
+        <p id="chat-line"></p>
+    </div>
+    <div class="buttons">
+        <button class="yes-btn" onclick="confirmLove()">Có</button>
+        <button class="no-btn" onclick="rejectLove()">Không</button>
+    </div>
+
+    <script>
+        var kichban = [
+            ['Em à, anh có điều muốn nói', 'Anh nói đi'],
+            ['Anh muốn hỏi em là:..', 'Đừng ngại, anh cứ nói đi :>']
+        ];
+        var loiToTinh = 'Em có yêu anh không?';
+        var xacnhan = 'Anh cũng yêu em :>';
+        var tocDo = 50;
+        var khiChonKhong = 'Đừng ngoan cố thế chọn nút kia đi!';
+        var linkToMess = 'https://www.facebook.com/share/15f6KAzxdV/?mibextid=JRoKGi';
+
+        var chatBox = document.getElementById('chat-line');
+        var index = 0;
+
+        function typeWriter(text, callback) {
+            let i = 0;
+            chatBox.innerHTML = '';
+            function typing() {
+                if (i < text.length) {
+                    chatBox.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typing, tocDo);
+                } else if (callback) {
+                    callback();
+                }
+            }
+            typing();
+        }
+
+        function startChat() {
+            if (index < kichban.length) {
+                typeWriter(kichban[index][0], function () {
+                    setTimeout(function () {
+                        typeWriter(kichban[index][1], function () {
+                            index++;
+                            setTimeout(startChat, 1000);
+                        });
+                    }, 1000);
+                });
+            } else {
+                typeWriter(loiToTinh);
+            }
+        }
+
+        function confirmLove() {
+            alert(xacnhan);
+            window.location.href = linkToMess;
+        }
+
+        function rejectLove() {
+            alert(khiChonKhong);
+        }
+
+        // Bắt đầu đoạn hội thoại
+        startChat();
+    </script>
+</body>
+</html>
